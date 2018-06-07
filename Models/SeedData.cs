@@ -21,7 +21,7 @@ namespace TheBookieJoint.Models {
                             Genre = "Классическая проза",
                             Publisher = "АСТ",
                             PublicationYear = "2015",
-                            Price = 19 
+                            Price = 202 
                         },
                     new Product {
                             Name = "Смерть Демона", 
@@ -34,7 +34,7 @@ namespace TheBookieJoint.Models {
                             Genre = "Детективный роман",
                             Publisher = "Эксмо",
                             PublicationYear = "2009", 
-                            Price = 19 
+                            Price = 173 
                         },
                     new Product {
                             Name = "Игра Престолов", 
@@ -47,7 +47,7 @@ namespace TheBookieJoint.Models {
                             Genre = "Фантастический роман",
                             Publisher = "АСТ",
                             PublicationYear = "2012", 
-                            Price = 19 
+                            Price = 483 
                         },
                     new Product {
                             Name = "Психология Лжи", 
@@ -60,7 +60,7 @@ namespace TheBookieJoint.Models {
                             Genre = "Популярная литература по психологии",
                             Publisher = "Питер",
                             PublicationYear = "2011", 
-                            Price = 19 
+                            Price = 415 
                         },
                     new Product {
                             Name = "Filth", 
@@ -73,7 +73,7 @@ namespace TheBookieJoint.Models {
                             Genre = "Современная проза",
                             Publisher = "Vintage",
                             PublicationYear = "2013", 
-                            Price = 19 
+                            Price = 495 
                         },
                     new Product {
                             Name = "Темный Эльф", 
@@ -86,7 +86,7 @@ namespace TheBookieJoint.Models {
                             Genre = "Фантастический роман",
                             Publisher = "Азбука-классика",
                             PublicationYear = "2008", 
-                            Price = 19 
+                            Price = 309 
                         },
                     new Product {
                             Name = "Критика Чистого Разума", 
@@ -99,7 +99,7 @@ namespace TheBookieJoint.Models {
                             Genre = "Философия",
                             Publisher = "Издательство \"Э\"",
                             PublicationYear = "2017", 
-                            Price = 19 
+                            Price = 429 
                         },
                     new Product {
                             Name = "Портрет Дориана Грея. Пьессы. Сказки", 
@@ -112,7 +112,7 @@ namespace TheBookieJoint.Models {
                             Genre = "Классическая проза",
                             Publisher = "Эксмо",
                             PublicationYear = "2015", 
-                            Price = 19 
+                            Price = 429 
                         },
                     new Product {
                             Name = "Волкодав. Мир по дороге", 
@@ -125,7 +125,7 @@ namespace TheBookieJoint.Models {
                             Genre = "Фантастический роман",
                             Publisher = "Азбука-Аттикус",
                             PublicationYear = "2015", 
-                            Price = 19 
+                            Price = 347 
                         }
                 );
                 context.SaveChanges();
