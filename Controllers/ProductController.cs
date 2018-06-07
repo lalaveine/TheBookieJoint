@@ -12,17 +12,19 @@ namespace TheBookieJoint.Controllers {
         public ProductController(IProductRepository repo) {
             repository = repo;
         }
-        public ViewResult List(int productPage = 1) 
+        public ViewResult List(string genre, int productPage = 1) 
                 => View(new ProductsListViewModel {
                             Products = repository.Products
+                            .Where(p => genre == null || p.Genre == genre)
                                 .OrderBy(p => p.ProductID)
                                 .Skip((productPage - 1) * PageSize)
                                 .Take(PageSize),
                             PagingInfo = new PagingInfo {
                                 CurrentPage = productPage,
                                 ItemsPerPage = PageSize,
-                                TotalItems = repository.Products.Count()
-                            }
+                                TotalItems = genre == null ? repository.Products.Count() : repository.Products.Where(p => p.Genre == genre).Count()
+                            },
+                            CurrentGenre = genre
                         });
 
     }
