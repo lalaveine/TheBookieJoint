@@ -24,6 +24,8 @@ namespace TheBookieJoint
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(Configuration["Data:TheBookieJoint:ConnectionString"]));
             services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc();
             services.AddMemoryCache();
             services.AddSession();
