@@ -1,13 +1,22 @@
 @model Cart
 <div class="container">
     @if (Model.Lines.Count() > 0) {
-        <div class="">
-            <small class="navbar-text">
-            <b>Your cart:</b>
-            @Model.Lines.Sum(x => x.Quantity) item(s)
-            @Model.ComputeTotalValue().ToString("c")
-            </small>
-        </div>        
+        <small class="navbar-text">
+        <b>В корзине:</b>
+        @Model.Lines.Sum(x => x.Quantity) 
+        @if (((@Model.Lines.Sum(x => x.Quantity) % 100 >= 10) && (@Model.Lines.Sum(x => x.Quantity) % 100 <= 20)) || (@Model.Lines.Sum(x => x.Quantity) % 10 == 0)) {
+            <span>книг</span>
+        } else if (@Model.Lines.Sum(x => x.Quantity) % 10 == 1) {
+            <span>книга</span>
+        } else if ((@Model.Lines.Sum(x => x.Quantity) % 10 > 1) && (@Model.Lines.Sum(x => x.Quantity) % 10 < 5)) {
+            <span>книги</span>
+        } else if ((@Model.Lines.Sum(x => x.Quantity) % 10 > 4) && (@Model.Lines.Sum(x => x.Quantity) % 10 <= 9)) {
+            <span>книг</span>
+        } else {
+            <span>ДЕФОЛТ @(@Model.Lines.Sum(x => x.Quantity) % 10) книга</span>
+        }
+        @Model.ComputeTotalValue().ToString("c")
+        </small>      
     }
     <a class="btn btn-sm btn-secondary navbar-btn" asp-controller="Cart" asp-action="Index" asp-route-returnurl="@ViewContext.HttpContext.Request.PathAndQuery()">
         <i class="fa fa-shopping-cart"></i>
