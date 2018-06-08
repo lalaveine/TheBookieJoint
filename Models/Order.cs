@@ -31,21 +31,18 @@ namespace TheBookieJoint.Models {
         [StringLength(100)]
         public string Line3 { get; set; }
         
+        [Required(ErrorMessage = "Please enter a country name")]
+        [StringLength(100)]
+        public string Country { get; set; }
+
+
         [Required(ErrorMessage = "Пожалуйста, ведите название города")]
         [RegularExpression(@"([а-яА-Я -]+)", ErrorMessage = "Название города может содержать только кириллические символы, пробелы и дефисы")]
         [StringLength(100)]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "Please enter a state name")]
         [StringLength(100)]
-        public string State { get; set; }
-
-        [StringLength(100)]
-        public string Zip { get; set; }
-
-        [Required(ErrorMessage = "Please enter a country name")]
-        [StringLength(100)]
-        public string Country { get; set; }
+        public string PostalCode { get; set; }
 
         public bool GiftWrap { get; set; }
     }
