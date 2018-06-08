@@ -30,7 +30,8 @@ namespace TheBookieJoint.Controllers {
 
         public ViewResult Search(string searchString) => View(new ProductsSearchViewModel {
                             Products = searchString != null 
-                                ? repository.Products.Where(p => p.Name.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase))
+                                ? repository.Products.Where(p => p.Name.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase) 
+                                    || p.Author.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase))
                                 : Enumerable.Empty<Product>()
         });
     }
