@@ -1,8 +1,11 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 
 using TheBookieJoint.Models;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace TheBookieJoint.Controllers {
 
@@ -14,9 +17,39 @@ namespace TheBookieJoint.Controllers {
         public AdminController(IProductRepository repo) {
             repository = repo;
         }
-        
-        public ViewResult Index() => View(repository.Products.OrderBy(p => p.ProductID));
 
+        public async Task<IActionResult> Index(string sortOrder)
+        {
+            ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
+            ViewData["PriceSortParm"] = sortOrder == "price" ? "price_desc" : "price";
+
+            var products = from p in repository.Products
+                        select p;
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    products = products.OrderByDescending(p => p.ProductID);
+                    break;
+                case "name":
+                    products = products.OrderBy(p => p.Name);
+                    break;
+                case "name_desc":
+                    products = products.OrderByDescending(p => p.Name);
+                    break;
+                case "price":
+                    products = products.OrderBy(p => p.Price);
+                    break;
+                case "price_desc":
+                    products = products.OrderByDescending(p => p.Price);
+                    break;
+                default:
+                    products = products.OrderBy(p => p.ProductID);
+                    break;
+            }
+            return View(await products.AsNoTracking().ToListAsync());
+        }
+        
         public ViewResult Edit(int productId) =>
             View(repository.Products
                 .FirstOrDefault(p => p.ProductID == productId));

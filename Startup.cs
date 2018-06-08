@@ -70,6 +70,11 @@ namespace TheBookieJoint
                 
                 routes.MapRoute(
                     name: null,
+                    template: "Admin",
+                    defaults: new { controller = "Admin", action = "Index"});
+                
+                routes.MapRoute(
+                    name: null,
                     template: "{genre}",
                     defaults: new { controller = "Product", action = "List", productPage = 1 });
                 

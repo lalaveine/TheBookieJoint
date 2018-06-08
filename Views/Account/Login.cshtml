@@ -2,22 +2,40 @@
 
 @{
 ViewBag.Title = "Log In";
-Layout = "_AdminLayout";
+Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" asp-href-include="/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" asp-href-include="/lib/fontawesome/css/*.min.css" />
+    <title>The Bookie Joint</title>
+</head>
 
-<div class="text-danger" asp-validation-summary="All"></div>
+<body>
+    <div class="text-danger" asp-validation-summary="All"></div>
 
-<form asp-action="Login" asp-controller="Account" method="post">
-    <input type="hidden" asp-for="ReturnUrl" />
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <div><span asp-validation-for="Name" class="text-danger"></span></div>
-        <input asp-for="Name" class="form-control" />
+    <div class="d-flex align-items-center flex-column justify-content-center h-100 bg-dark text-white" id="header">
+        <h1 class="display-4">Введите логин и пароль</h1>
+        <form asp-action="Login" asp-controller="Account" method="post">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <div><span asp-validation-for="Name" class="text-danger"></span></div>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <div><span asp-validation-for="Password" class="text-danger"></span></div>
+                <input asp-for="Password" class="form-control" />
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Log In</button>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <div><span asp-validation-for="Password" class="text-danger"></span></div>
-        <input asp-for="Password" class="form-control" />
-    </div>
-    <button class="btn btn-primary" type="submit">Log In</button>
-</form>
+
+    <script asp-src-include="/lib/bootstrap/js/*.min.js"></script>
+  </body>
+</html>
