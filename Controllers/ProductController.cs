@@ -4,6 +4,8 @@ using System.Linq;
 using TheBookieJoint.Models.ViewModels;
 
 using TheBookieJoint.Models;
+using System;
+
 namespace TheBookieJoint.Controllers {
     public class ProductController : Controller {
         private IProductRepository repository;
@@ -12,8 +14,7 @@ namespace TheBookieJoint.Controllers {
         public ProductController(IProductRepository repo) {
             repository = repo;
         }
-        public ViewResult List(string genre, int productPage = 1) 
-                => View(new ProductsListViewModel {
+        public ViewResult List(string genre, int productPage = 1) => View(new ProductsListViewModel {
                             Products = repository.Products
                             .Where(p => genre == null || p.Genre == genre)
                                 .OrderBy(p => p.ProductID)
@@ -25,7 +26,12 @@ namespace TheBookieJoint.Controllers {
                                 TotalItems = genre == null ? repository.Products.Count() : repository.Products.Where(p => p.Genre == genre).Count()
                             },
                             CurrentGenre = genre
-                        });
+        });
 
+        public ViewResult SearchList(string searchString) => View(new ProductsSearchListViewModel {
+                            Products = repository.Products
+                                .Where(p => p.Name.Contains(searchString.Trim(),  StringComparison.OrdinalIgnoreCase))
+                                    .OrderBy(p => p.ProductID)
+        });
     }
 }

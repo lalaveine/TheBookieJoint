@@ -1,0 +1,10 @@
+@model ProductsSearchListViewModel
+
+@if(@Model.Products.Count() > 0) {
+    @foreach (var p in Model.Products) {
+        @Html.Partial("ProductSummary", p)
+    }
+} else {
+    <h1>Упс... Кажется такой книги нет :(</h1>
+}
+
