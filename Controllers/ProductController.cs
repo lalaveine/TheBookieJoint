@@ -29,9 +29,9 @@ namespace TheBookieJoint.Controllers {
         });
 
         public ViewResult Search(string searchString) => View(new ProductsSearchViewModel {
-                            Products = repository.Products
-                                .Where(p => p.Name.Contains(searchString.Trim(),  StringComparison.OrdinalIgnoreCase))
-                                    .OrderBy(p => p.ProductID)
+                            Products = searchString != null 
+                                ? repository.Products.Where(p => p.Name.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase))
+                                : Enumerable.Empty<Product>()
         });
     }
 }
