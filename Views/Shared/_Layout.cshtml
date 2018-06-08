@@ -24,6 +24,9 @@
             @await Component.InvokeAsync("NavigationMenu")
         </div>
         <div class="col-9">
+            @if (TempData["message"] != null) {
+                <div class="alert alert-danger">@TempData["message"]</div> 
+            }
             @RenderBody()
         </div>
     </div>

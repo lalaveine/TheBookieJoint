@@ -22,8 +22,8 @@ namespace TheBookieJoint.Controllers {
                 TempData["message"] = $"{product.Name} has been saved";
                 return RedirectToAction("Index");
             } else {
-            // there is something wrong with the data values
-            return View(product);
+                // there is something wrong with the data values
+                return View(product);
             }
         }
     }

@@ -22,7 +22,11 @@ namespace TheBookieJoint.Controllers {
         public RedirectToActionResult AddToCart(int productId, string returnUrl) {
             Product product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
             if (product != null) {
-                cart.AddItem(product, 1);
+                if (cart.Lines.Where(l => l.Product.ProductID == product.ProductID).Count() == product.NumberOfCopies){
+                    TempData["message"] = $"Эта книга не может быть добавлена в корзину.";
+                } else {
+                    cart.AddItem(product, 1);
+                }                
             }
             return RedirectToAction("Index", new { returnUrl });
         }

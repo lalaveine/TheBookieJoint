@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace TheBookieJoint.Models {
     public class EFProductRepository : IProductRepository {
@@ -17,9 +18,17 @@ namespace TheBookieJoint.Models {
 
                 if (dbEntry != null) {
                     dbEntry.Name = product.Name;
+                    dbEntry.Author = product.Author;
+                    dbEntry.Translators = product.Translators;
                     dbEntry.Description = product.Description;
-                    dbEntry.Price = product.Price;
+                    dbEntry.OriginalLanguage = product.OriginalLanguage;
+                    dbEntry.Language = product.Language;
+                    dbEntry.ISBN = product.ISBN;
                     dbEntry.Genre = product.Genre;
+                    dbEntry.Publisher = product.Publisher;
+                    dbEntry.PublicationYear = product.PublicationYear;
+                    dbEntry.NumberOfCopies = product.NumberOfCopies;
+                    dbEntry.Price = product.Price;                    
                 }
             }
             context.SaveChanges();

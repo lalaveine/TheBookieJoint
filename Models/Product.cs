@@ -22,7 +22,7 @@ namespace TheBookieJoint.Models {
         public string Translators { get; set; }
 
         [Required(ErrorMessage = "Пожалуйста, введите описание книги")]
-        [RegularExpression(@"([\p{Ll}\p{Lu}\p{Lt}\p{Lm}\p{Lo} -.,]+)", ErrorMessage = "Поле \"Описание\" может содержать только буквы (в т.ч. иероглифы), точки, запятые, пробелы и дефисы")]
+        // [RegularExpression(@"([\p{Ll}\p{Lu}\p{Lt}\p{Lm}\p{Lo} -.,]+)", ErrorMessage = "Поле \"Описание\" может содержать только буквы (в т.ч. иероглифы), точки, запятые, пробелы и дефисы")]
         [StringLength(1500)]
         public string Description { get; set; }
 
@@ -55,6 +55,9 @@ namespace TheBookieJoint.Models {
         [RegularExpression(@"([0-9]+)", ErrorMessage = "Поле \"Год издания\" может содержать только цифры")]
         [StringLength(100)]
         public string PublicationYear { get; set; }
+
+        [Range(0, uint.MaxValue, ErrorMessage = "Это поле должно содержать положительное число")]
+        public uint NumberOfCopies { get; set; }
 
         [Required(ErrorMessage = "Пожалуйста, введите цену")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Цена должна быть положительным числом")]
