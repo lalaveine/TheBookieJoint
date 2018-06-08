@@ -28,7 +28,7 @@ namespace TheBookieJoint.Controllers {
                             CurrentGenre = genre
         });
 
-        public ViewResult SearchList(string searchString) => View(new ProductsSearchListViewModel {
+        public ViewResult Search(string searchString) => View(new ProductsSearchViewModel {
                             Products = repository.Products
                                 .Where(p => p.Name.Contains(searchString.Trim(),  StringComparison.OrdinalIgnoreCase))
                                     .OrderBy(p => p.ProductID)
