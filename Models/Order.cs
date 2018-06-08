@@ -14,33 +14,35 @@ namespace TheBookieJoint.Models {
         public bool Shipped { get; set; }
         
         [Required(ErrorMessage = "Пожалуйста, введите имя")]
-        [RegularExpression(@"([\p{IsCyrillic} -]+)", ErrorMessage = "Имя и фамилия могут содержать только кириллические символы, пробелы и дефисы")]
-        [StringLength(50, ErrorMessage = "Строка не может быть больше 100 символов")]
+        [RegularExpression(@"([\p{IsCyrillic} -]+)", ErrorMessage = "Поле \"Имя и фамилия\" может содержать только кириллические символы, пробелы и дефисы")]
+        [StringLength(100, ErrorMessage = "Имя и фамилия не может быть больше 100 символов")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Пожалуйста, заполните первый адрес")]
-        [RegularExpression(@"([а-яА-Я -]+)", ErrorMessage = "Адрес может содержать только кириллические символы, пробелы и дефисы")]
+        [RegularExpression(@"([\p{IsCyrillic} -]+)", ErrorMessage = "Поле \"Адрес\" может содержать только кириллические символы, пробелы и дефисы")]
         [StringLength(100)]
         public string Line1 { get; set; }
 
-        [RegularExpression(@"([а-яА-Я -]+)", ErrorMessage = "Адрес может содержать только кириллические символы, пробелы и дефисы")]
+        [RegularExpression(@"([\p{IsCyrillic} -]+)", ErrorMessage = "Поле \"Адрес\" может содержать только кириллические символы, пробелы и дефисы")]
         [StringLength(100)]
         public string Line2 { get; set; }
 
-        [RegularExpression(@"([а-яА-Я -]+)", ErrorMessage = "Адрес может содержать только кириллические символы, пробелы и дефисы")]
+        [RegularExpression(@"([\p{IsCyrillic} -]+)", ErrorMessage = "Поле \"Адрес\" может содержать только кириллические символы, пробелы и дефисы")]
         [StringLength(100)]
         public string Line3 { get; set; }
         
-        [Required(ErrorMessage = "Please enter a country name")]
+        [Required(ErrorMessage = "Пожалуйста введите название страны")]
+        [RegularExpression(@"([\p{IsCyrillic} -]+)", ErrorMessage = "Поле \"Страна\" может содержать только кириллические символы, пробелы и дефисы")]
         [StringLength(100)]
         public string Country { get; set; }
 
 
         [Required(ErrorMessage = "Пожалуйста, ведите название города")]
-        [RegularExpression(@"([а-яА-Я -]+)", ErrorMessage = "Название города может содержать только кириллические символы, пробелы и дефисы")]
+        [RegularExpression(@"([\p{IsCyrillic} -]+)", ErrorMessage = "Поле \"Город\" может содержать только кириллические символы, пробелы и дефисы")]
         [StringLength(100)]
         public string City { get; set; }
 
+        [RegularExpression(@"([0-9]+)", ErrorMessage = "Почтовый индекс может содержать только цифры")]
         [StringLength(100)]
         public string PostalCode { get; set; }
 

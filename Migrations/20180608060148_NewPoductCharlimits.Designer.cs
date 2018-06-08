@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TheBookieJoint.Models;
@@ -9,9 +10,10 @@ using TheBookieJoint.Models;
 namespace TheBookieJoint.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180608060148_NewPoductCharlimits")]
+    partial class NewPoductCharlimits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,7 +68,7 @@ namespace TheBookieJoint.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100);
+                        .HasMaxLength(50);
 
                     b.Property<string>("PostalCode")
                         .HasMaxLength(100);
@@ -88,19 +90,15 @@ namespace TheBookieJoint.Migrations
                         .HasMaxLength(100);
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(1500);
 
                     b.Property<string>("Genre")
-                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<string>("ISBN")
-                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<string>("Language")
-                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<string>("Name")
@@ -108,22 +106,18 @@ namespace TheBookieJoint.Migrations
                         .HasMaxLength(100);
 
                     b.Property<string>("OriginalLanguage")
-                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<decimal>("Price")
-                        .HasMaxLength(50);
+                        .HasMaxLength(100);
 
                     b.Property<string>("PublicationYear")
-                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<string>("Publisher")
-                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<string>("Translators")
-                        .IsRequired()
                         .HasMaxLength(500);
 
                     b.HasKey("ProductID");
