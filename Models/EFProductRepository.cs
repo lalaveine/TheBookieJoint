@@ -33,5 +33,13 @@ namespace TheBookieJoint.Models {
             }
             context.SaveChanges();
         }
+        public Product DeleteProduct(int productID) {
+            Product dbEntry = context.Products.FirstOrDefault(p => p.ProductID == productID);
+            if (dbEntry != null) {
+                context.Products.Remove(dbEntry);
+                context.SaveChanges();
+            }
+            return dbEntry;
+        }
     }
 }

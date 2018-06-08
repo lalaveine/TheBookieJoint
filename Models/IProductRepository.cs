@@ -5,6 +5,8 @@ namespace TheBookieJoint.Models {
         IQueryable<Product> Products { get; }
 
         void SaveProduct(Product product);
+
+        Product DeleteProduct(int productID);
     }
 }
 
