@@ -34,5 +34,18 @@ namespace TheBookieJoint.Controllers {
                                     || p.Author.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase))
                                 : Enumerable.Empty<Product>()
         });
+
+        [HttpPost]
+        public IActionResult Edit(Product product) {
+            if (ModelState.IsValid) {
+                repository.SaveProduct(product);
+                TempData["message"] = $"{product.Name} has been saved";
+                return RedirectToAction("Index");
+            } else {
+                // there is something wrong with the data values
+                return View(product);
+            }
+        }
+
     }
 }

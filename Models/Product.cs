@@ -57,7 +57,6 @@ namespace TheBookieJoint.Models {
         public string PublicationYear { get; set; }
 
         [Required(ErrorMessage = "Пожалуйста, введите цену")]
-        [StringLength(50)]
         [Range(0.01, double.MaxValue, ErrorMessage = "Цена должна быть положительным числом")]
         public decimal Price { get; set; }
         
