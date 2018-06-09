@@ -4,14 +4,21 @@
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" asp-href-include="/lib/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" asp-href-include="/lib/fontawesome/css/*.min.css" />
-    <title>The Bookie Joint</title>
+    <title>@ViewBag.Title</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
-        <a class="col navbar-brand" href="/">The Bookie Joint</a>
-        <form class="form-inline" asp-action="Search" asp-controller="Product" asp-route-genre="" method="get">
-            <input class="form-control mr-sm-2" type="search" name="SearchString" placeholder="Автор или название" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+        <a class="col navbar-brand" href="/">
+            The Bookie Joint 
+            @if (@ViewBag.Title != "The Bookie Joint") {
+                <span>
+                    | <small>На главную</small>
+                </span>
+            }
+        </a>
+        <form class="form-inline" asp-action="List" method="get">
+            <input class="form-control mr-sm-2" type="search" name="SearchString" value="@ViewData["currentFilter"]" placeholder="Автор или название" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button> |
         </form>
         <div class="collapse navbar-collapse">
             <div class="col text-right">
@@ -20,16 +27,10 @@
         </div>
     </nav>
     <div class="row m-1 p-1">
-        <div id="genres" class="col-3">
-
-            @await Component.InvokeAsync("NavigationMenu")
-        </div>
-        <div class="col-9">
             @if (TempData["message"] != null) {
                 <div class="alert alert-danger">@TempData["message"]</div> 
             }
             @RenderBody()
-        </div>
     </div>
     <script asp-src-include="/lib/bootstrap/js/*.min.js"></script>
 </body>

@@ -18,14 +18,32 @@ namespace TheBookieJoint.Controllers {
             repository = repo;
         }
 
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
+            ViewData["AuthorSortParm"] = sortOrder == "author" ? "author_desc" : "author";
+            ViewData["LanguageSortParm"] = sortOrder == "language" ? "language_desc" : "language";
+            ViewData["GenreSortParm"] = sortOrder == "genre" ? "genre_desc" : "genre";
+            ViewData["PublisherSortParm"] = sortOrder == "publisher" ? "publisher_desc" : "publisher";
             ViewData["PriceSortParm"] = sortOrder == "price" ? "price_desc" : "price";
 
-            var products = from p in repository.Products
-                        select p;
+            ViewData["CurrentFilter"] = searchString;
+
+            var products = repository.Products;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(p => p.ProductID.ToString().Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase)
+                                            || p.Name.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase)
+                                            || p.Author.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase)
+                                            || p.Language.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase)
+                                            || p.Genre.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase)
+                                            || p.Publisher.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase)
+                                            || p.Price.ToString().Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase));
+            }
+
+            
             switch (sortOrder)
             {
                 case "id_desc":
@@ -35,6 +53,30 @@ namespace TheBookieJoint.Controllers {
                     products = products.OrderBy(p => p.Name);
                     break;
                 case "name_desc":
+                    products = products.OrderByDescending(p => p.Name);
+                    break;
+                case "author":
+                    products = products.OrderBy(p => p.Name);
+                    break;
+                case "author_desc":
+                    products = products.OrderByDescending(p => p.Name);
+                    break;
+                case "language":
+                    products = products.OrderBy(p => p.Name);
+                    break;
+                case "language_desc":
+                    products = products.OrderByDescending(p => p.Name);
+                    break;
+                case "genre":
+                    products = products.OrderBy(p => p.Name);
+                    break;
+                case "genre_desc":
+                    products = products.OrderByDescending(p => p.Name);
+                    break;
+                case "publisher":
+                    products = products.OrderBy(p => p.Name);
+                    break;
+                case "publisher_desc":
                     products = products.OrderByDescending(p => p.Name);
                     break;
                 case "price":

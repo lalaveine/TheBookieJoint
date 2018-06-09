@@ -14,26 +14,29 @@ namespace TheBookieJoint.Controllers {
         public ProductController(IProductRepository repo) {
             repository = repo;
         }
-        public ViewResult List(string genre, int productPage = 1) => View(new ProductsListViewModel {
-                            Products = repository.Products
-                            .Where(p => genre == null || p.Genre == genre)
-                                .OrderBy(p => p.ProductID)
-                                .Skip((productPage - 1) * PageSize)
-                                .Take(PageSize),
+        public ViewResult List(string genre, string searchString, int productPage = 1) {
+            ViewData["CurrentFilter"] = searchString;
+
+            var products = repository.Products.Where(p => genre == null || p.Genre == genre)
+                                    .OrderBy(p => p.ProductID)
+                                    .Skip((productPage - 1) * PageSize)
+                                    .Take(PageSize);
+
+            if (!String.IsNullOrEmpty(searchString)) {
+                products = repository.Products.Where(p => p.Name.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase)
+                                            || p.Author.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase));
+            }
+
+            return View(new ProductsListViewModel {
+                            Products = products,
                             PagingInfo = new PagingInfo {
                                 CurrentPage = productPage,
                                 ItemsPerPage = PageSize,
                                 TotalItems = genre == null ? repository.Products.Count() : repository.Products.Where(p => p.Genre == genre).Count()
                             },
                             CurrentGenre = genre
-        });
-
-        public ViewResult Search(string searchString) => View(new ProductsSearchViewModel {
-                            Products = searchString != null 
-                                ? repository.Products.Where(p => p.Name.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase) 
-                                    || p.Author.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase))
-                                : Enumerable.Empty<Product>()
-        });
+            });
+        } 
 
         [HttpPost]
         public IActionResult Edit(Product product) {
@@ -46,6 +49,9 @@ namespace TheBookieJoint.Controllers {
                 return View(product);
             }
         }
+
+        public ViewResult Details(int productId) => View(repository.Products
+                .FirstOrDefault(p => p.ProductID == productId));
 
     }
 }
