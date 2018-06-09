@@ -3,6 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" asp-href-include="/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" asp-href-include="/lib/fontawesome/css/*.min.css" />
     <style>
         .input-validation-error { border-color: red; background-color: #fee ; }
     </style>
@@ -10,27 +11,23 @@
 </head>
 <body class="m-1 p-1">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="col navbar-brand" href="/Admin">The Bookie Joint |</a>
-            </div>
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle navbar-brand" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <small>@ViewBag.Title</small>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" asp-action="Index" asp-controller="Admin">All Products</a>
-                        <a class="dropdown-item" asp-action="List" asp-controller="Order" >Orders</a>
-                    </div>
-                </li>
-            </ul>
-            <div class="collapse navbar-collapse">
+            <a class="col navbar-brand" href="/Admin">The Bookie Joint | <small>Панель администрирования</small></a>
+            <div class="collapse navbar-collapse"></div>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle navbar-brand" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <small>@ViewBag.Title</small>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-action="Index" asp-controller="Admin">Каталог</a>
+                            <a class="dropdown-item" asp-action="List" asp-controller="Order" >Заказы</a>
+                        </div>
+                    </li>
+                </ul>            
                 <div class="col text-right">
                     <a class="btn btn-sm btn-primary" asp-action="Logout" asp-controller="Account">Log Out</a>
                 </div>        
             </div>
-        </div>
     </nav>
     <div class="row m-1 p-1">
         <div class="col-9">
