@@ -21,7 +21,7 @@ namespace TheBookieJoint.Models {
                             Genre = "Классическая проза",
                             Publisher = "АСТ",
                             PublicationYear = "2015",
-                            NumberOfCopies = 1,
+                            NumberOfCopies = 30,
                             CoverImgPath = "/images/covers/жан-поль-сартр-тошнота-1.jpg",
                             Price = 202 
                         },

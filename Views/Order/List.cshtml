@@ -1,6 +1,6 @@
 @model OrderListViewModel
 @{
-    ViewBag.Title = "Orders";
+    ViewBag.Title = "Заказы";
     Layout = "_AdminLayout";
 }
 
@@ -28,6 +28,16 @@
                 </a>
             </th>
             <th>
+                <a asp-action="List" asp-controller="Order" asp-route-sortOrder="@ViewData["ShippedSortParm"]" style="text-decoration: none"> 
+                    <span>Статус</span>
+                    @if (@Model.CurrentSortOrder == "shipped") {
+                        <span class="fa fa-sort-amount-asc"></span>                  
+                    } else if (@Model.CurrentSortOrder == "shipped_desc") {
+                        <span class="fa fa-sort-amount-desc"></span>
+                    }
+                </a>
+            </th>
+            <th>
                 <a asp-action="List" asp-controller="Order" asp-route-sortOrder="@ViewData["NameSortParm"]" style="text-decoration: none"> 
                     <span>Имя</span>
                     @if (@Model.CurrentSortOrder == "name") {
@@ -38,7 +48,7 @@
                 </a>
             </th>
             <th>
-                <a asp-action="List" asp-controller="Order" asp-route-sortOrder="@ViewData["PostalCodeParm"]" style="text-decoration: none"> 
+                <a asp-action="List" asp-controller="Order" asp-route-sortOrder="@ViewData["PostalCodeSortParm"]" style="text-decoration: none"> 
                     <span>Почтовый индекс</span>
                     @if (@Model.CurrentSortOrder == "postalCode") {
                         <span class="fa fa-sort-amount-asc"></span>                  
@@ -47,18 +57,84 @@
                     }
                 </a>
             </th>
-            <th colspan="2">Details</th>
+            <th colspan="2">Детали</th>
+            <th></th>
         </tr>
         @foreach (Order o in Model.Orders) {
             <tr>
-                <td>@o.OrderID</td><td>@o.Name</td><td>@o.PostalCode</td><th>Product</th><th>Quantity</th>
+                <td>@o.OrderID</td>
+                <td>
+                    @if (@o.Shipped == true) {
+                        <span>Отправлен</span>
+                    } else {
+                        <span>Ждет отправки</span>
+                    }
+                </td>
+                <td>@o.Name</td><td>@o.PostalCode</td>
+                <td colspan="2">Подарочная упаковка: 
+                    @if (@o.GiftWrap == true) {
+                        <span>Да</span>
+                    } else {
+                        <span>Нет</span>
+                    }
+                </td>
+                <td>
+                    @if (@o.Shipped == true) {
+                        <tr></tr>
+                    } else {
+                        <form asp-action="MarkShipped" method="post">
+                            <input type="hidden" name="orderId" value="@o.OrderID" />
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                Выслать
+                            </button>
+                        </form>
+                    }                    
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="4" class="border-0"></td>
+                <td colspan="2">Страна: @o.Country</td>
+                <td class="border-0"></td>
+            </tr>
+            <tr>
+                <td colspan="4" class="border-0"></td>
+                <td colspan="2">Город: @o.City</td>
+                <td class="border-0"></td>
+            </tr>
+            <tr>
+                <td colspan="4" class="border-0"></td>
+                <td colspan="2">Адрес 1: @o.Line1</td>
+                <td class="border-0"></td>
+            </tr>
+            @if (o.Line2 != null) {
+                <tr>
+                    <td colspan="4" class="border-0"></td>
+                    <td colspan="2">Адрес 2: @o.Line2</td>
+                    <td class="border-0"></td>
+                </tr>
+            }
+            @if (o.Line3 != null) {
+                <tr>
+                    <td colspan="4" class="border-0"></td>
+                    <td colspan="2">Адрес 3: @o.Line3</td>
+                    <td class="border-0"></td>
+                </tr>
+            }
+            <tr>
+                <td colspan="4" class="border-0"></td>
+                <th>Книга</th><th>Количество</th>
+                <td class="border-0"></td>
             </tr>
             @foreach (CartLine line in o.Lines) {
                 <tr>
-                    <td colspan="3"></td>
-                    <td>@line.Product.Name</td><td>@line.Quantity</td>
+                    <td colspan="4" class="border-0"></td>
+                    <td><a asp-action="Details"  asp-controller="Product" asp-route-productId="@line.Product.ProductID" style="text-decoration: none">@line.Product.Name</a></td>
+                    <td>@line.Quantity</td>
+                    <td class="border-0"></td>
                 </tr>
-            }
+            }          
+            
         }
     </table>
     <div page-model="@Model.PagingInfo" page-action="List" page-classes-enabled="true"

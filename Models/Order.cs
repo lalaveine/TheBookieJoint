@@ -19,15 +19,15 @@ namespace TheBookieJoint.Models {
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Пожалуйста, заполните первый адрес")]
-        [RegularExpression(@"([\p{IsCyrillic} -]+)", ErrorMessage = "Поле \"Адрес\" может содержать только кириллические символы, пробелы и дефисы")]
+        [RegularExpression(@"([\p{IsCyrillic} -.,]+)", ErrorMessage = "Поле \"Адрес\" может содержать только кириллические символы, точки, запятые, пробелы и дефисы")]
         [StringLength(100)]
         public string Line1 { get; set; }
 
-        [RegularExpression(@"([\p{IsCyrillic} -]+)", ErrorMessage = "Поле \"Адрес\" может содержать только кириллические символы, пробелы и дефисы")]
+        [RegularExpression(@"([\p{IsCyrillic} -.,]+)", ErrorMessage = "Поле \"Адрес\" может содержать только кириллические символы, точки, запятые, пробелы и дефисы")]
         [StringLength(100)]
         public string Line2 { get; set; }
 
-        [RegularExpression(@"([\p{IsCyrillic} -]+)", ErrorMessage = "Поле \"Адрес\" может содержать только кириллические символы, пробелы и дефисы")]
+        [RegularExpression(@"([\p{IsCyrillic} -.,]+)", ErrorMessage = "Поле \"Адрес\" может содержать только кириллические символы, точки, запятые, пробелы и дефисы")]
         [StringLength(100)]
         public string Line3 { get; set; }
         

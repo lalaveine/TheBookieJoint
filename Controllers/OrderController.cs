@@ -24,8 +24,9 @@ namespace TheBookieJoint.Controllers {
         [Authorize]
         public IActionResult List(string sortOrder, string searchString, int productPage = 1) {
             ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewData["ShippedSortParm"] = sortOrder == "shipped" ? "shipped_desc" : "shipped";
             ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
-            ViewData["PostalCodeSortParm"] = sortOrder == "postalCode" ? "postalCode_desc" : "postalCod";
+            ViewData["PostalCodeSortParm"] = sortOrder == "postalCode" ? "postalCode_desc" : "postalCode";
 
             var orders = repository.Orders;
 
@@ -39,6 +40,12 @@ namespace TheBookieJoint.Controllers {
             {
                 case "id_desc":
                     orders = orders.OrderByDescending(o => o.OrderID);
+                    break;
+                case "shipped":
+                    orders = orders.OrderBy(p => p.Name);
+                    break;
+                case "shipped_desc":
+                    orders = orders.OrderByDescending(o => o.Name);
                     break;
                 case "name":
                     orders = orders.OrderBy(p => p.Name);
