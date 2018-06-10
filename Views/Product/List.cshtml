@@ -3,17 +3,15 @@
     ViewBag.Title = "The Bookie Joint";
 }
 
-<div id="genres" class="col-3">
-    @await Component.InvokeAsync("NavigationMenu")
-</div>
-
-<div class="col-9">
-    @foreach (var p in Model.Products) {
-        @Html.Partial("ProductSummary", p)
-    }
-
-    <div page-model="@Model.PagingInfo" page-action="List" page-classes-enabled="true"
-        page-class="btn" page-class-normal="btn-secondary"
-        page-class-selected="btn-primary" page-url-genre="@Model.CurrentGenre" class="btn-group pull-right m-1">
-    </div>
+@foreach (var p in Model.Products) {
+    @Html.Partial("ProductSummary", p)
+}
+@if (@ViewData["CurrentFilter"] != null && @Model.CurrentGenre != null && @Model.Products.Count() == 0) {
+    <h3>Упс... Таких книг в этом жанре нет</h3>
+} else if (@ViewData["CurrentFilter"] != null && @Model.CurrentGenre == null && @Model.Products.Count() == 0) {
+    <h3>Упс... Таких книг у нас нет</h3>
+}
+<div page-model="@Model.PagingInfo" page-action="List" page-classes-enabled="true"
+    page-class="btn" page-class-normal="btn-secondary"
+    page-class-selected="btn-primary" page-url-genre="@Model.CurrentGenre" page-url-searchString="@ViewData["currentFilter"]" class="btn-group pull-right m-1">
 </div>

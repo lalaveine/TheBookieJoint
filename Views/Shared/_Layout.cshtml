@@ -16,7 +16,11 @@
                 </span>
             }
         </a>
-        <form class="form-inline" asp-action="List" method="get">
+        <form class="form-inline" asp-action="List" 
+            @if (@Model.CurrentGenre != null){
+                asp-route-genre=@Model.CurrentGenre
+            }                 
+            method="get">
             <input class="form-control mr-sm-2" type="search" name="SearchString" value="@ViewData["currentFilter"]" placeholder="Автор или название" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button> |
         </form>
@@ -27,10 +31,16 @@
         </div>
     </nav>
     <div class="row m-1 p-1">
+        <div id="genres" class="col-3">
+            @await Component.InvokeAsync("NavigationMenu")
+        </div>
+
+        <div class="col-9">
             @if (TempData["message"] != null) {
                 <div class="alert alert-danger">@TempData["message"]</div> 
             }
             @RenderBody()
+        </div>
     </div>
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

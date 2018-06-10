@@ -58,9 +58,45 @@ namespace TheBookieJoint
             app.UseSession();
             app.UseAuthentication();
             app.UseMvc(routes => {
+
                 routes.MapRoute(
                     name: null,
-                    template: "{genre}/Page{productPage:int}",
+                    template: "/Admin/Orders/sort-{sortOrder}/Page{productPage:int}",
+                    defaults: new { controller = "Order", action = "List"});
+
+                routes.MapRoute(
+                    name: null,
+                    template: "/Admin/Orders/Page{productPage:int}",
+                    defaults: new { controller = "Order", action = "List"});
+
+                routes.MapRoute(
+                    name: null,
+                    template: "/Admin/Orders",
+                    defaults: new { controller = "Order", action = "List"});    
+
+                routes.MapRoute(
+                    name: null,
+                    template: "Admin/sort-{sortOrder}/Page{productPage:int}",
+                    defaults: new { controller = "Admin", action = "Index"});         
+
+                routes.MapRoute(
+                    name: null,
+                    template: "Admin/Page{productPage:int}",
+                    defaults: new { controller = "Admin", action = "Index" });                
+                
+                routes.MapRoute(
+                    name: null,
+                    template: "Admin/sort-{sortOrder}",
+                    defaults: new { controller = "Admin", action = "Index" });
+                
+                routes.MapRoute(
+                    name: null,
+                    template: "Admin",
+                    defaults: new { controller = "Admin", action = "Index" });
+                
+                routes.MapRoute(
+                    name: null,
+                    template: "genre-{genre}/Page{productPage:int}",
                     defaults: new { controller = "Product", action = "List" });
 
                 routes.MapRoute(
@@ -70,19 +106,14 @@ namespace TheBookieJoint
                 
                 routes.MapRoute(
                     name: null,
-                    template: "Admin",
-                    defaults: new { controller = "Admin", action = "Index"});
-                
-                routes.MapRoute(
-                    name: null,
-                    template: "{genre}",
+                    template: "genre-{genre}",
                     defaults: new { controller = "Product", action = "List", productPage = 1 });
-                
+
                 routes.MapRoute(
                     name: null,
                     template: "",
                     defaults: new { controller = "Product", action = "List", productPage = 1 });
-
+                
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}");

@@ -1,15 +1,14 @@
-using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
-
-using TheBookieJoint.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 using TheBookieJoint.Models;
-using System;
+using TheBookieJoint.Models.ViewModels;
 
 namespace TheBookieJoint.Controllers {
     public class ProductController : Controller {
         private IProductRepository repository;
-        public int PageSize = 6;
+        public int PageSize = 5;
 
         public ProductController(IProductRepository repo) {
             repository = repo;
@@ -17,22 +16,22 @@ namespace TheBookieJoint.Controllers {
         public ViewResult List(string genre, string searchString, int productPage = 1) {
             ViewData["CurrentFilter"] = searchString;
 
-            var products = repository.Products.Where(p => genre == null || p.Genre == genre)
-                                    .OrderBy(p => p.ProductID)
-                                    .Skip((productPage - 1) * PageSize)
-                                    .Take(PageSize);
+            var products = repository.Products.Where(p => genre == null || p.Genre == genre);
+                                    
 
             if (!String.IsNullOrEmpty(searchString)) {
-                products = repository.Products.Where(p => p.Name.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase)
+                products = products.Where(p => p.Name.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase)
                                             || p.Author.Contains(searchString.Trim() , StringComparison.OrdinalIgnoreCase));
             }
 
             return View(new ProductsListViewModel {
-                            Products = products,
+                            Products = products.OrderBy(p => p.ProductID)
+                                            .Skip((productPage - 1) * PageSize)
+                                            .Take(PageSize),
                             PagingInfo = new PagingInfo {
                                 CurrentPage = productPage,
                                 ItemsPerPage = PageSize,
-                                TotalItems = genre == null ? repository.Products.Count() : repository.Products.Where(p => p.Genre == genre).Count()
+                                TotalItems = products.Count()
                             },
                             CurrentGenre = genre
             });

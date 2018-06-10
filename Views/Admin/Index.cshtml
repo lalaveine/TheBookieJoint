@@ -1,4 +1,4 @@
-@model IEnumerable<Product>
+@model AdminIndexViewModel
 
 @{
     ViewBag.Title = "Каталог";
@@ -8,8 +8,8 @@
     <tr>
         <th colspan="3">
             <form class="form-inline" asp-action="Index" asp-controller="Admin" method="get">
-                <input class="form-control mr-sm-2" type="search" name="SearchString" value="@ViewData["currentFilter"]" placeholder="" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button> | <a asp-action="Index">Back to Full List</a>
+                <input class="form-control mr-sm-2" type="search" name="SearchString" asp-for="@Model.SearchString" alue placeholder="" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button> | <a asp-action="Index">Сбросить фильтры</a>
             </form>
         <th colspan="1">
             <div class="text-center">
@@ -23,9 +23,9 @@
         <th class="text-center">
             <a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParm"]" style="text-decoration: none">
                 <span>ID</span>
-                @if (@ViewData["IdSort"] == "true") {
+                @if (@Model.CurrentSortOrder == null) {
                     <span class="fa fa-sort-amount-asc"></span>                  
-                } else if (ViewData["IdDescSort"] == "true") {
+                } else if (@Model.CurrentSortOrder == "id_desc") {
                     <span class="fa fa-sort-amount-desc"></span>
                 }
             </a>                
@@ -33,9 +33,9 @@
         <th class="text-center">
             <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" style="text-decoration: none" >
                 <span>Название</span>
-                @if (@ViewData["NameSort"] == "true") {
+                @if (@Model.CurrentSortOrder == "name") {
                     <span class="fa fa-sort-amount-asc"></span>                  
-                } else if (ViewData["NameDescSort"] == "true") {
+                } else if (@Model.CurrentSortOrder == "name_desc") {
                     <span class="fa fa-sort-amount-desc"></span>
                 }
             </a>
@@ -43,9 +43,9 @@
         <th class="text-center">
             <a asp-action="Index" asp-route-sortOrder="@ViewData["AuthorSortParm"]" style="text-decoration: none"> 
                 <span>Автор</span>
-                @if (@ViewData["AuthorSort"] == "true") {
+                @if (@Model.CurrentSortOrder == "author") {
                     <span class="fa fa-sort-amount-asc"></span>                  
-                } else if (ViewData["AuthorDescSort"] == "true") {
+                } else if (@Model.CurrentSortOrder == "author_desc") {
                     <span class="fa fa-sort-amount-desc"></span>
                 }
             </a>
@@ -53,9 +53,9 @@
         <th class="text-center">
             <a asp-action="Index" asp-route-sortOrder="@ViewData["LanguageSortParm"]" style="text-decoration: none">
                 <span>Язык издания</span>
-                @if (@ViewData["LanguageSort"] == "true") {
+                @if (@Model.CurrentSortOrder == "language") {
                     <span class="fa fa-sort-amount-asc"></span>                  
-                } else if (ViewData["LanguageDescSort"] == "true") {
+                } else if (@Model.CurrentSortOrder == "language_desc") {
                     <span class="fa fa-sort-amount-desc"></span>
                 }
             </a>
@@ -63,9 +63,9 @@
         <th class="text-center">
             <a asp-action="Index" asp-route-sortOrder="@ViewData["GenreSortParm"]" style="text-decoration: none"> 
                 <span>Жанр</span>
-                @if (@ViewData["GenreSort"] == "true") {
+                @if (@Model.CurrentSortOrder == "genre") {
                     <span class="fa fa-sort-amount-asc"></span>                  
-                } else if (ViewData["GenreDescSort"] == "true") {
+                } else if (@Model.CurrentSortOrder == "genre_desc") {
                     <span class="fa fa-sort-amount-desc"></span>
                 }
             </a>
@@ -73,9 +73,9 @@
         <th class="text-center">
             <a asp-action="Index" asp-route-sortOrder="@ViewData["PublisherSortParm"]" style="text-decoration: none">
                 <span>Издатель</span>
-                @if (@ViewData["PublisherSort"] == "true") {
+                @if (@Model.CurrentSortOrder == "publisher") {
                     <span class="fa fa-sort-amount-asc"></span>                  
-                } else if (ViewData["PublisherDescSort"] == "true") {
+                } else if (@Model.CurrentSortOrder == "publisher_desc") {
                     <span class="fa fa-sort-amount-desc"></span>
                 }
             </a>
@@ -83,16 +83,16 @@
         <th class="text-center">
             <a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]" style="text-decoration: none">
                 <span>Цена</span>
-                @if (@ViewData["PriceSort"] == "true") {
+                @if (@Model.CurrentSortOrder == "publisher") {
                     <span class="fa fa-sort-amount-asc"></span>                  
-                } else if (ViewData["PriceDescSort"] == "true") {
+                } else if (@Model.CurrentSortOrder == "publisher_desc") {
                     <span class="fa fa-sort-amount-desc"></span>
                 }
             </a>
         </th>
         <th class="text-center">Действия</th>
     </tr>
-    @foreach (var item in Model) {
+    @foreach (var item in Model.Products) {
         <tr>
             <td class="text-right">@item.ProductID</td>
             <td>@item.Name</td>
@@ -115,4 +115,9 @@
         </tr>
     }
 </table>
+
+<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+    page-class="btn" page-class-normal="btn-secondary"
+    page-class-selected="btn-primary" page-url-sortOrder="@Model.CurrentSortOrder" page-url-searchString="@Model.SearchString" class="btn-group pull-right m-1">
+</div>
 
