@@ -47,7 +47,7 @@ namespace TheBookieJoint.Models {
         public string Genre { get; set; }
 
         [Required(ErrorMessage = "Пожалуйста, введите издателя книги")]
-        [RegularExpression(@"([\p{IsCyrillic} -.,]+)", ErrorMessage = "Поле \"Издатель\" может содержать только кириллические символы, точки, запятые, пробелы и дефисы")]
+        [RegularExpression(@"([\p{Ll}\p{Lu}\p{Lt}\p{Lm}\p{Lo} -.,]+)", ErrorMessage = "Поле \"Издатель\" может содержать только кириллические символы, точки, запятые, пробелы и дефисы")]
         [StringLength(100)]
         public string Publisher { get; set; }
 
@@ -58,6 +58,9 @@ namespace TheBookieJoint.Models {
 
         [Range(0, uint.MaxValue, ErrorMessage = "Это поле должно содержать положительное число")]
         public uint NumberOfCopies { get; set; }
+
+        // [Required(ErrorMessage = "Пожалуйста, введите год издания книги")]
+        public string CoverImgPath { get; set; }
 
         [Required(ErrorMessage = "Пожалуйста, введите цену")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Цена должна быть положительным числом")]

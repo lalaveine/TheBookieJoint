@@ -4,7 +4,7 @@
     Layout = "_AdminLayout";
 }
 
-<form asp-action="Edit" method="post">
+<form asp-action="Edit" enctype="multipart/form-data" method="post">
     <input type="hidden" asp-for="ProductID" />
 
     <div class="form-group">
@@ -77,6 +77,13 @@
         <label asp-for="Price"></label>
         <div><span asp-validation-for="Price" class="text-danger"></span></div>
         <input asp-for="Price" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>Обложка: @Model.CoverImgPath</p>
+            <input type="file" name="cover" />
+        </div>
     </div>
 
     <div class="text-center">

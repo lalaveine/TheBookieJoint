@@ -28,6 +28,7 @@ namespace TheBookieJoint.Models {
                     dbEntry.Publisher = product.Publisher;
                     dbEntry.PublicationYear = product.PublicationYear;
                     dbEntry.NumberOfCopies = product.NumberOfCopies;
+                    dbEntry.CoverImgPath = product.CoverImgPath;
                     dbEntry.Price = product.Price;                    
                 }
             }

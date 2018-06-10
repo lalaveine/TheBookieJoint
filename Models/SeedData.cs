@@ -22,6 +22,7 @@ namespace TheBookieJoint.Models {
                             Publisher = "АСТ",
                             PublicationYear = "2015",
                             NumberOfCopies = 1,
+                            CoverImgPath = "/images/covers/жан-поль-сартр-тошнота-1.jpg",
                             Price = 202 
                         },
                     new Product {
@@ -35,7 +36,8 @@ namespace TheBookieJoint.Models {
                             Genre = "Детективный роман",
                             Publisher = "Эксмо",
                             PublicationYear = "2009",
-                            NumberOfCopies = 30, 
+                            NumberOfCopies = 30,
+                            CoverImgPath = "/images/covers/рекс-стаут-смерть-демона-2.jpeg", 
                             Price = 173 
                         },
                     new Product {
@@ -49,7 +51,8 @@ namespace TheBookieJoint.Models {
                             Genre = "Фантастический роман",
                             Publisher = "АСТ",
                             PublicationYear = "2012",
-                            NumberOfCopies = 30, 
+                            NumberOfCopies = 30,
+                            CoverImgPath = "/images/covers/джордж-мартин-игра-престолов-3.jpg", 
                             Price = 483 
                         },
                     new Product {
@@ -63,7 +66,8 @@ namespace TheBookieJoint.Models {
                             Genre = "Популярная литература по психологии",
                             Publisher = "Питер",
                             PublicationYear = "2011",
-                            NumberOfCopies = 30, 
+                            NumberOfCopies = 30,
+                            CoverImgPath = "/images/covers/пол-экман-психология-лжи-4.jpg", 
                             Price = 415 
                         },
                     new Product {
@@ -77,7 +81,8 @@ namespace TheBookieJoint.Models {
                             Genre = "Современная проза",
                             Publisher = "Vintage",
                             PublicationYear = "2013",
-                            NumberOfCopies = 30, 
+                            NumberOfCopies = 30,
+                            CoverImgPath = "/images/covers/irvine-welsh-filth-5.jpg", 
                             Price = 495 
                         },
                     new Product {
@@ -91,7 +96,8 @@ namespace TheBookieJoint.Models {
                             Genre = "Фантастический роман",
                             Publisher = "Азбука-классика",
                             PublicationYear = "2008",
-                            NumberOfCopies = 30, 
+                            NumberOfCopies = 30,
+                            CoverImgPath = "/images/covers/роберт-сальваторе-темный-эльф-6.jpg", 
                             Price = 309 
                         },
                     new Product {
@@ -106,6 +112,7 @@ namespace TheBookieJoint.Models {
                             Publisher = "Издательство \"Э\"",
                             PublicationYear = "2017",
                             NumberOfCopies = 30,
+                            CoverImgPath = "/images/covers/иммануил-кант-критика-чистого-разума-7.jpg",
                             Price = 429 
                         },
                     new Product {
@@ -120,6 +127,7 @@ namespace TheBookieJoint.Models {
                             Publisher = "Эксмо",
                             PublicationYear = "2015",
                             NumberOfCopies = 30,
+                            CoverImgPath = "/images/covers/оскар-уайльд-портрет-дориана-грея.-пьессы.-сказки-8.jpg",
                             Price = 429 
                         },
                     new Product {
@@ -134,6 +142,7 @@ namespace TheBookieJoint.Models {
                             Publisher = "Азбука-Аттикус",
                             PublicationYear = "2015",
                             NumberOfCopies = 30,
+                            CoverImgPath = "/images/covers/мария-семенова-волкодав.-мир-по-дороге-9.jpg",
                             Price = 347 
                         }
                 );

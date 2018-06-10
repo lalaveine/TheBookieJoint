@@ -95,7 +95,7 @@
     @foreach (var item in Model.Products) {
         <tr>
             <td class="text-right">@item.ProductID</td>
-            <td>@item.Name</td>
+            <td><a asp-action="Details"  asp-controller="Product" asp-route-productId="@item.ProductID" style="text-decoration: none">@item.Name</a</td>
             <td>@item.Author</td>
             <td>@item.Language</td>
             <td>@item.Genre</td>

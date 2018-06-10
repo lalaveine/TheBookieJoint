@@ -3,18 +3,26 @@
     ViewBag.Title = @Model.Name + " | " + @Model.Author;
 }
 
-<div class="jumbotron">
+<div class="jumbotron h-100">
         <h3 class="display-4">@Model.Name | <small>@Model.Author</small></h3>
-        <h5>Жанр: @Model.Genre</h5>
-        <h5>Переводчики: @Model.Translators</h5>
-        <h5>Язык оригинала: @Model.OriginalLanguage</h5>
-        <h5>Язык издания: @Model.Language</h5>
-        <h5>ISBN: @Model.ISBN</h5>
-        <h5>Издатель: @Model.Publisher</h5>
-        <h5>Год издания: @Model.PublicationYear</h5>
-        <h5>Цена: @Model.Price <span class="fa fa-rub"></span></h5>
-        <hr class="my-4">
-        <h3>Описание</h4>
-        <p class="lead">@Model.Description</p>
+        @if (@Model.CoverImgPath != "") {
+            <div>
+                <img src="@Model.CoverImgPath" class="img-thumbnail float-left w-25 h-25">
+            </div>            
+        }            
+        <div>
+            <h5>Жанр: @Model.Genre</h5>
+            <h5>Переводчики: @Model.Translators</h5>
+            <h5>Язык оригинала: @Model.OriginalLanguage</h5>
+            <h5>Язык издания: @Model.Language</h5>
+            <h5>ISBN: @Model.ISBN</h5>
+            <h5>Издатель: @Model.Publisher</h5>
+            <h5>Год издания: @Model.PublicationYear</h5>
+            <h5>Цена: @Model.Price <span class="fa fa-rub"></span></h5>
+            <hr class="my-4">
+            <h3>Описание</h4>
+            <p class="lead">@Model.Description</p>
+            </br></br>
+        </div>
 </div>
 

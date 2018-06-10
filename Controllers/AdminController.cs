@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 using TheBookieJoint.Models;
 using TheBookieJoint.Models.ViewModels;
+using Microsoft.AspNetCore.Http;
 
 namespace TheBookieJoint.Controllers {
 
@@ -26,7 +27,7 @@ namespace TheBookieJoint.Controllers {
             appEnvironment = appEnv;
         }
       
-        public async Task<IActionResult> Index(string sortOrder, string searchString, int productPage = 1)
+        public IActionResult Index(string sortOrder, string searchString, int productPage = 1)
         {
             ViewData["IdSortParm"] = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
             ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
@@ -110,19 +111,21 @@ namespace TheBookieJoint.Controllers {
         public ViewResult Edit(int productId) => View(repository.Products.FirstOrDefault(p => p.ProductID == productId));
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Product product) {
-            // string path = "/images/books/default.png";
-            // if (files.Count != 0)
-            // {
-            //     var img = files[0];
-            //     path = "/images/books/" + img.FileName;
-
-            //     using (var fileStream = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
-            //     {
-            //         await img.CopyToAsync(fileStream);
-            //     }
-            // }
+        public async Task<IActionResult> Edit(Product product, IFormFile cover) {
             if (ModelState.IsValid) {
+                if (cover != null)
+                {
+                    // Поменять задание имени на имя-автора-название-id
+                    product.CoverImgPath = String.Format("/images/covers/{0}-{1}-{2}{3}", product.Author, product.Name, product.ProductID, Path.GetExtension(cover.FileName)).Replace(" ", "-").ToLower();
+
+                    using (var fileStream = new FileStream(appEnvironment.WebRootPath + product.CoverImgPath, FileMode.Create))
+                    {
+                        await cover.CopyToAsync(fileStream);
+                    }
+                }
+                if (product.CoverImgPath == null) {
+                    product.CoverImgPath = "";
+                }
                 repository.SaveProduct(product);
                 TempData["message"] = $"{product.Name} has been saved";
                 return RedirectToAction("Index");
