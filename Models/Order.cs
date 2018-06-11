@@ -42,6 +42,7 @@ namespace TheBookieJoint.Models {
         [StringLength(100)]
         public string City { get; set; }
 
+        [Required(ErrorMessage = "Пожалуйста, ведите почтовый индекс")]
         [RegularExpression(@"([0-9]+)", ErrorMessage = "Почтовый индекс может содержать только цифры")]
         [StringLength(100)]
         public string PostalCode { get; set; }
