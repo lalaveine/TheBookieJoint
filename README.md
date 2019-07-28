@@ -1,1 +1,1 @@
-Online bookshop powered by .net core
+Online bookshop powered by .Net Core
